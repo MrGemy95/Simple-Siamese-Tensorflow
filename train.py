@@ -7,7 +7,7 @@ from data_generator import DataLoader
 def train():
     batch_size = 16
     shape = (200, 100, 3)
-    loader = DataLoader("../", 100, shape[:2])
+    loader = DataLoader("../", 200, shape[:2])
     exp_path = "./"
 
     model = siamese_model(shape)
