@@ -69,6 +69,7 @@ class DataLoader():
             batch_images1 = np.array(batch_images1)
             batch_images2 = np.array(batch_images2)
             labels = np.array(labels)
+
             yield [batch_images1, batch_images2], labels[:, 0]
 
     def generate_epoch_val(self, batch_size):

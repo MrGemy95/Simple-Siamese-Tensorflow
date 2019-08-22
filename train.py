@@ -10,7 +10,7 @@ def train():
     exp_path = "./"
 
     model = siamese_model(shape)
-    optim = tf.keras.optimizers.SGD(lr=0.001)
+    optim = tf.keras.optimizers.Adam(lr=0.0001)
 
     loss = 'binary_crossentropy'
     metrics = ['binary_accuracy', 'acc']
