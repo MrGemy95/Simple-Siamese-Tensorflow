@@ -34,10 +34,10 @@ def train():
                                                     mode='max')
     callbacks_list = [checkpoint, tf.keras.callbacks.TerminateOnNaN(), tb]
 
-    history = model.fit_generator(loader.generate_epoch_train(),
-                                  validation_data=loader.generate_epoch_val(),
-                                  validation_steps=50,
-                                  steps_per_epoch=100,
+    history = model.fit_generator(loader.generate_epoch_train(8),
+                                  validation_data=loader.generate_epoch_val(8),
+                                  validation_steps=loader.val_size*loader.samples//8,
+                                  steps_per_epoch=loader.train_size*loader.samples//8,
                                   epochs=2000,
                                   callbacks=callbacks_list)
 
