@@ -99,7 +99,7 @@ class DataLoader():
         for i, dir in enumerate(dirs):
             files = [f for f in glob.glob(os.path.join(path, dir) + "/*.jpg")]
             print(dir)
-            sample_files = random.sample(files, samples)
+            sample_files = random.choices(files, k=samples)
             for j, s in enumerate(sample_files):
                 img = imageio.imread(s)
 
