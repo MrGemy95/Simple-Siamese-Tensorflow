@@ -53,8 +53,7 @@ class DataLoader():
         return imgs
 
     def generate_epoch_train(self, batch_size):
-        for num in range(self.train_size * self.samples // batch_size):
-
+        while True:
             batch_images1 = []
             batch_images2 = []
             labels = []
@@ -73,8 +72,7 @@ class DataLoader():
             yield [batch_images1, batch_images2], labels[:, 0]
 
     def generate_epoch_val(self, batch_size):
-        for num in range(self.val_size * self.samples // batch_size):
-
+        while True:
             batch_images1 = []
             batch_images2 = []
             labels = []
