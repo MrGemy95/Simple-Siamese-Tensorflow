@@ -9,6 +9,10 @@ def siamese_model(shape):
     backbone = tf.keras.Sequential()
     resnet = tf.keras.applications.resnet50.ResNet50(weights='imagenet', input_shape=(221, 221, 3),
                                                      include_top=False, pooling='avg')
+
+    for layer in resnet.layers[0:-20]:
+        layer.trainable = False
+
     backbone.add(resnet)
 
     features_a = backbone(img_a)
