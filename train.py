@@ -6,11 +6,11 @@ from data_generator import DataLoader
 
 def train():
     shape = (200, 100, 3)
-    loader = DataLoader("../", 100, shape[:2])
+    loader = DataLoader("../", 10, shape[:2])
     exp_path = "./"
 
     model = siamese_model(shape)
-    optim = tf.keras.optimizers.Adam(lr=0.0001)
+    optim = tf.keras.optimizers.SGD(lr=0.001)
 
     loss = 'binary_crossentropy'
     metrics = ['binary_accuracy', 'acc']
