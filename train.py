@@ -5,8 +5,9 @@ from data_generator import DataLoader
 
 
 def train():
+    batch_size = 16
     shape = (200, 100, 3)
-    loader = DataLoader("../", 10, shape[:2])
+    loader = DataLoader("../", 100, shape[:2])
     exp_path = "./"
 
     model = siamese_model(shape)
@@ -34,10 +35,10 @@ def train():
                                                     mode='max')
     callbacks_list = [checkpoint, tf.keras.callbacks.TerminateOnNaN(), tb]
 
-    history = model.fit_generator(loader.generate_epoch_train(8),
-                                  validation_data=loader.generate_epoch_val(8),
-                                  validation_steps=loader.val_size*loader.samples//8,
-                                  steps_per_epoch=loader.train_size*loader.samples//8,
+    history = model.fit_generator(loader.generate_epoch_train(batch_size),
+                                  validation_data=loader.generate_epoch_val(batch_size),
+                                  validation_steps=loader.val_size * loader.samples // batch_size,
+                                  steps_per_epoch=loader.train_size * loader.samples // batch_size,
                                   epochs=2000,
                                   callbacks=callbacks_list)
 
