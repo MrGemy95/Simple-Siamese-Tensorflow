@@ -1,13 +1,15 @@
 import numpy as np
 import h5py
 import os
-import cv2
 import random
 import sys
 from random import shuffle
 import glob
 from scipy import misc
 import matplotlib.pyplot as plt
+import skimage
+import imageio
+import tensorflow as tf
 
 random.seed(0)
 
@@ -92,19 +94,22 @@ class DataLoader():
 
     def load_data(self, path, dirs, samples=10, size=(256, 128)):
         print(len(dirs), samples, size[0], size[1], 3)
-        data = np.zeros(shape=(len(dirs), samples, size[0], size[1], 3), dtype=np.uint8)
+        data = np.zeros(shape=(len(dirs), samples, size[0], size[1], 3), dtype=np.float32)
 
         for i, dir in enumerate(dirs):
             files = [f for f in glob.glob(os.path.join(path, dir) + "/*.jpg")]
             print(dir)
             sample_files = random.sample(files, samples)
             for j, s in enumerate(sample_files):
-                img = misc.imread(s)
+                img = imageio.imread(s)
 
-                img = misc.imresize(img, size=size)
-
-                data[i, j] = img
-
+                img = skimage.transform.resize(img, size, preserve_range=True)
+                # plt.imshow(img)
+                # plt.show()
+                # test = tf.keras.applications.resnet50.preprocess_input(img)
+                data[i, j] = tf.keras.applications.resnet50.preprocess_input(img)
+                # plt.imshow(data[i, j])
+                # plt.show()
         return data
 
 

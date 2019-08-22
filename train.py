@@ -5,10 +5,11 @@ from data_generator import DataLoader
 
 
 def train():
-    loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 10, (200, 100))
+    shape = (200, 100, 3)
+    loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 10, shape[:2])
     exp_path = "./"
 
-    model = siamese_model()
+    model = siamese_model(shape)
     optim = tf.keras.optimizers.Adam(lr=0.0001)
 
     loss = 'binary_crossentropy'

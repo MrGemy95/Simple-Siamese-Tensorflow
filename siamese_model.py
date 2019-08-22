@@ -3,12 +3,12 @@ import tensorflow as tf
 tf.keras.applications.xception.Xception()
 
 
-def siamese_model():
-    img_a = tf.keras.layers.Input(shape=(220, 220, 3))
-    img_b = tf.keras.layers.Input(shape=(220, 220, 3))
-    backbone=tf.keras.Sequential()
+def siamese_model(shape):
+    img_a = tf.keras.layers.Input(shape=shape)
+    img_b = tf.keras.layers.Input(shape=shape)
+    backbone = tf.keras.Sequential()
     resnet = tf.keras.applications.resnet50.ResNet50(weights='imagenet', input_shape=(221, 221, 3),
-                                                       include_top=False, pooling='avg')
+                                                     include_top=False, pooling='avg')
     backbone.add(resnet)
 
     features_a = backbone(img_a)
