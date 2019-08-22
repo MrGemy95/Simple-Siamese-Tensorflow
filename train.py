@@ -6,7 +6,7 @@ from data_generator import DataLoader
 
 def train():
     shape = (200, 100, 3)
-    loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 10, shape[:2])
+    loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 100, shape[:2])
     exp_path = "./"
 
     model = siamese_model(shape)
