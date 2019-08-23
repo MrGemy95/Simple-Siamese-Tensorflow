@@ -15,12 +15,12 @@ random.seed(0)
 
 
 class DataLoader():
-    def __init__(self, path, samples, img_size,test=False):
+    def __init__(self, path, samples, img_size, test=False):
         self.path = path
         self.img_size = img_size
         self.samples = samples
         if test:
-            self.test_data=self.prepare_test_data(path)
+            self.test_data = self.prepare_test_data(path)
             self.test_size = len(self.test_data)
 
         else:
@@ -41,7 +41,6 @@ class DataLoader():
         val_data = self.load_data(os.path.join(path, "bbox_train"), val_dirs, self.samples, self.img_size)
         return train_data, val_data
 
-
     def prepare_test_data(self, path):
         all_dirs = sorted(os.listdir(path=os.path.join(path, "bbox_test")))
         print(all_dirs)
@@ -49,7 +48,6 @@ class DataLoader():
         print(all_dirs)
         test_data = self.load_data(os.path.join(path, "bbox_test"), all_dirs, self.samples, self.img_size)
         return test_data
-
 
     def get_pair_test(self, positive):
 
@@ -228,8 +226,9 @@ class DataLoader():
 # if __name__ == '__main__':
 # prepare_data(sys.argv[1])
 if __name__ == '__main__':
-    loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 10, (200, 100))
-    for i, j in enumerate(loader.generate_epoch_train(8)):
+    loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 10, (200, 100),
+                        test=True)
+    for i, j in enumerate(loader.generate_test(8)):
         print(i)
     for i, j in enumerate(loader.generate_epoch_val(8)):
         print(i)

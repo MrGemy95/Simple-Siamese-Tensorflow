@@ -8,7 +8,7 @@ import argparse
 def test(args):
     batch_size = 16
     shape = (200, 100, 3)
-    loader = DataLoader(args.path, 150, shape[:2])
+    loader = DataLoader(args.path, 150, shape[:2],test=True)
     exp_path = "./"
 
     model = siamese_model(shape)
@@ -44,4 +44,10 @@ def test(args):
 
 
 if __name__ == '__main__':
-    pass
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--path", help="path to dataset",default="../")
+    parser.add_argument("--exp_name", help="experiment name",default="exp")
+    args = parser.parse_args()
+
+    test(args)
+
