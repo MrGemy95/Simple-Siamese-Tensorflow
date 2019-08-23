@@ -37,8 +37,8 @@ def train():
 
     history = model.fit_generator(loader.generate_epoch_train(batch_size),
                                   validation_data=loader.generate_epoch_val(batch_size),
-                                  validation_steps=loader.val_size * loader.samples // batch_size,
-                                  steps_per_epoch=loader.train_size * loader.samples // batch_size,
+                                  validation_steps=loader.val_size  // batch_size,
+                                  steps_per_epoch=loader.train_size  // batch_size,
                                   epochs=2000,
                                   callbacks=callbacks_list)
 
