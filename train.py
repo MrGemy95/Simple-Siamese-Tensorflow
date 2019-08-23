@@ -27,7 +27,7 @@ def train():
                                         write_graph=True,
                                         write_images=True)
 
-    checkpoint = tf.keras.callbacks.ModelCheckpoint(os.path.join(exp_path,"second", "ckpt"),
+    checkpoint = tf.keras.callbacks.ModelCheckpoint(os.path.join(exp_path,"third", "ckpt"),
                                                     monitor='val_acc',
                                                     verbose=1,
                                                     save_weights_only=True,
