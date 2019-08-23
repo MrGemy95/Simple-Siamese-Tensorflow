@@ -48,8 +48,8 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("path", help="path to dataset",default="../")
-    parser.add_argument("exp_name", help="experiment name",default="exp")
+    parser.add_argument("--path", help="path to dataset",default="../")
+    parser.add_argument("--exp_name", help="experiment name",default="exp")
     args = parser.parse_args()
 
     train(args)
