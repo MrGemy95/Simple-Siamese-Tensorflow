@@ -15,13 +15,19 @@ random.seed(0)
 
 
 class DataLoader():
-    def __init__(self, path, samples, img_size):
+    def __init__(self, path, samples, img_size,test=False):
         self.path = path
         self.img_size = img_size
         self.samples = samples
-        self.train_data, self.val_data = self.prepare_train_data(path)
-        self.train_size = len(self.train_data)
-        self.val_size = len(self.val_data)
+        if test:
+            self.test_data=self.prepare_test_data(path)
+            self.test_size = len(self.test_data)
+
+        else:
+
+            self.train_data, self.val_data = self.prepare_train_data(path)
+            self.train_size = len(self.train_data)
+            self.val_size = len(self.val_data)
 
     def prepare_train_data(self, path, train_ratio=.8):
         all_dirs = sorted(os.listdir(path=os.path.join(path, "bbox_train")))
@@ -34,6 +40,28 @@ class DataLoader():
         train_data = self.load_data(os.path.join(path, "bbox_train"), train_dirs, self.samples, self.img_size)
         val_data = self.load_data(os.path.join(path, "bbox_train"), val_dirs, self.samples, self.img_size)
         return train_data, val_data
+
+
+    def prepare_test_data(self, path):
+        all_dirs = sorted(os.listdir(path=os.path.join(path, "bbox_test")))
+        print(all_dirs)
+        shuffle(all_dirs)
+        print(all_dirs)
+        test_data = self.load_data(os.path.join(path, "bbox_test"), all_dirs, self.samples, self.img_size)
+        return test_data
+
+
+    def get_pair_test(self, positive):
+
+        if positive:
+            idxs = np.random.choice(self.test_size, 1)
+            sample = np.random.choice(self.samples, 2)
+            imgs = self.test_data[idxs[0], sample]
+        else:
+            idxs = np.random.choice(self.test_size, 2)
+            sample = np.random.choice(self.samples, 1)
+            imgs = self.test_data[idxs, sample[0]]
+        return imgs
 
     def get_pair(self, positive, split):
         data = self.train_data if split == "train" else self.val_data
@@ -62,7 +90,27 @@ class DataLoader():
                 batch_images1.append(imgs[0])
                 batch_images2.append(imgs[1])
                 labels.append([1., 0.])
-                imgs = self.get_pair(False, "val")
+                imgs = self.get_pair(False, "train")
+                batch_images1.append(imgs[0])
+                batch_images2.append(imgs[1])
+                labels.append([0., 1.])
+            batch_images1 = np.array(batch_images1)
+            batch_images2 = np.array(batch_images2)
+            labels = np.array(labels)
+
+            yield [batch_images1, batch_images2], labels[:, 0]
+
+    def generate_test(self, batch_size):
+        while True:
+            batch_images1 = []
+            batch_images2 = []
+            labels = []
+            for i in range(batch_size // 2):
+                imgs = self.get_pair_test(True)
+                batch_images1.append(imgs[0])
+                batch_images2.append(imgs[1])
+                labels.append([1., 0.])
+                imgs = self.get_pair_test(False)
                 batch_images1.append(imgs[0])
                 batch_images2.append(imgs[1])
                 labels.append([0., 1.])
