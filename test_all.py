@@ -41,7 +41,7 @@ def test(args):
     history = model.evaluate(loader.generate_test(batch_size),
                              steps=loader.test_size // batch_size
                              )
-
+    print(history)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
