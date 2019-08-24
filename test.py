@@ -33,7 +33,11 @@ def test(args):
     model.summary()
 
     history = model.predict([[img1], [img2]], batch_size=1)
-    print(history)
+    print("Similarity is ", history[0][0])
+    if history[0][0] > .5:
+        print("They are the same person")
+    else:
+        print("They aren't the same person")
 
 
 if __name__ == '__main__':
