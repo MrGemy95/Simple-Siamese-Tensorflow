@@ -13,6 +13,7 @@ def test(args):
     img1 = imageio.imread(args.img1)
     img1 = skimage.transform.resize(img1, shape, preserve_range=True)
     img1 = tf.keras.applications.resnet50.preprocess_input(img1)
+
     img2 = imageio.imread(args.img2)
     img2 = skimage.transform.resize(img2, shape, preserve_range=True)
     img2 = tf.keras.applications.resnet50.preprocess_input(img2)
@@ -31,7 +32,7 @@ def test(args):
     print("Model Loaded Successifully")
     model.summary()
 
-    history = model.predict([img1, img2], batch_size=1)
+    history = model.predict([[img1], [img2]], batch_size=1)
     print(history)
 
 
