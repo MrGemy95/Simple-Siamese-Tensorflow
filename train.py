@@ -4,6 +4,7 @@ import os
 from data_generator import DataLoader
 import argparse
 
+
 def train(args):
     batch_size = 16
     shape = (200, 100, 3)
@@ -22,12 +23,12 @@ def train(args):
 
     model.summary()
 
-    tb = tf.keras.callbacks.TensorBoard(log_dir=os.path.join(exp_path, "logs"),
+    tb = tf.keras.callbacks.TensorBoard(log_dir=os.path.join(exp_path, args.exp_name, "logs"),
                                         histogram_freq=0,
                                         write_graph=True,
                                         write_images=True)
 
-    checkpoint = tf.keras.callbacks.ModelCheckpoint(os.path.join(exp_path,args.exp_name, "ckpt"),
+    checkpoint = tf.keras.callbacks.ModelCheckpoint(os.path.join(exp_path, args.exp_name, "ckpt"),
                                                     monitor='val_acc',
                                                     verbose=1,
                                                     save_weights_only=True,
@@ -37,8 +38,8 @@ def train(args):
 
     history = model.fit_generator(loader.generate_epoch_train(batch_size),
                                   validation_data=loader.generate_epoch_val(batch_size),
-                                  validation_steps=loader.val_size  // batch_size,
-                                  steps_per_epoch=loader.train_size  // batch_size,
+                                  validation_steps=loader.val_size // batch_size,
+                                  steps_per_epoch=loader.train_size // batch_size,
                                   epochs=2000,
                                   callbacks=callbacks_list)
 
@@ -48,8 +49,8 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--path", help="path to dataset",default="../")
-    parser.add_argument("--exp_name", help="experiment name",default="exp")
+    parser.add_argument("--path", help="path to dataset", default="../")
+    parser.add_argument("--exp_name", help="experiment name", default="exp")
     args = parser.parse_args()
 
     train(args)
