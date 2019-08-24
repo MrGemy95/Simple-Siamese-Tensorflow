@@ -20,7 +20,7 @@ def siamese_model(shape):
 
     merged = tf.keras.backend.concatenate([features_a, features_b])
     fc1 = tf.keras.layers.Dense(128, activation='relu', name='fc_1')(merged)
-    fc1 = tf.keras.layers.Dropout(0.7)(fc1)
+    fc1 = tf.keras.layers.Dropout(0.5)(fc1)
     fc2 = tf.keras.layers.Dense(32, activation='relu', name='fc_2')(fc1)
     fc2 = tf.keras.layers.Dropout(0.3)(fc2)
     out = tf.keras.layers.Dense(1, activation='sigmoid', name='fc_3')(fc2)
