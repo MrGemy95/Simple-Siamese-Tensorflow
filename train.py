@@ -40,7 +40,7 @@ def train(args):
                                   validation_data=loader.generate_epoch_val(batch_size),
                                   validation_steps=loader.val_size // batch_size,
                                   steps_per_epoch=loader.train_size // batch_size,
-                                  epochs=500,
+                                  epochs=700,
                                   callbacks=callbacks_list)
 
     acc = history.history['val_binary_accuracy']
