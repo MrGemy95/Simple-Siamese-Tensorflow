@@ -44,6 +44,8 @@ def test(args):
                              )
     print(history)
     sleep(5)
+    # 0.8686
+    # 0.8301
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", help="path to dataset",default="../")

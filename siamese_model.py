@@ -7,11 +7,11 @@ def siamese_model(shape):
     img_a = tf.keras.layers.Input(shape=shape)
     img_b = tf.keras.layers.Input(shape=shape)
     backbone = tf.keras.Sequential()
-    resnet = tf.keras.applications.resnet50.ResNet50(weights=None, input_shape=shape,
+    resnet = tf.keras.applications.resnet50.ResNet50(weights='imagenet', input_shape=shape,
                                                      include_top=False, pooling='avg')
 
-    # for layer in resnet.layers[0:-20]:
-    #     layer.trainable = False
+    for layer in resnet.layers[0:-20]:
+        layer.trainable = False
 
     backbone.add(resnet)
 
@@ -20,9 +20,9 @@ def siamese_model(shape):
 
     merged = tf.keras.backend.concatenate([features_a, features_b])
     fc1 = tf.keras.layers.Dense(128, activation='relu', name='fc_1')(merged)
-    fc1 = tf.keras.layers.Dropout(0.5)(fc1)
+    fc1 = tf.keras.layers.Dropout(0.0)(fc1)
     fc2 = tf.keras.layers.Dense(32, activation='relu', name='fc_2')(fc1)
-    fc2 = tf.keras.layers.Dropout(0.2)(fc2)
+    fc2 = tf.keras.layers.Dropout(0.0)(fc2)
     out = tf.keras.layers.Dense(1, activation='sigmoid', name='fc_3')(fc2)
 
     siamese = tf.keras.Model([img_a, img_b], out)
