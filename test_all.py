@@ -9,7 +9,7 @@ from time import sleep
 def test(args):
     batch_size = 16
     shape = (200, 100, 3)
-    loader = DataLoader(args.path, 5, shape[:2], test=True)
+    loader = DataLoader(args.path, 50, shape[:2], test=True)
     exp_path = "./"
 
     model = siamese_model(shape)
@@ -40,7 +40,7 @@ def test(args):
     # callbacks_list = [checkpoint, tf.keras.callbacks.TerminateOnNaN(), tb]
 
     history = model.evaluate(loader.generate_test(batch_size),
-                             steps=loader.test_size * 100 // batch_size
+                             steps=loader.test_size * 50 // batch_size
                              )
     print(history)
     sleep(5)
