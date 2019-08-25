@@ -30,3 +30,4 @@ def siamese_model(shape):
 
 
 # .8864 droupout
+# aug 0.86474586
