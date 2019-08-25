@@ -8,7 +8,7 @@ import argparse
 def train(args):
     batch_size = 16
     shape = (200, 100, 3)
-    loader = DataLoader(args.path, 10, shape[:2], augment=args.aug)
+    loader = DataLoader(args.path, args.samples, shape[:2], augment=args.aug)
     exp_path = "./"
 
     model = siamese_model(shape)
