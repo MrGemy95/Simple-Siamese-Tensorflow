@@ -7,11 +7,11 @@ def siamese_model(shape):
     img_a = tf.keras.layers.Input(shape=shape)
     img_b = tf.keras.layers.Input(shape=shape)
     backbone = tf.keras.Sequential()
-    resnet = tf.keras.applications.resnet50.ResNet50(weights='imagenet', input_shape=shape,
+    resnet = tf.keras.applications.resnet50.ResNet50(weights=None, input_shape=shape,
                                                      include_top=False, pooling='avg')
 
-    for layer in resnet.layers[0:-20]:
-        layer.trainable = False
+    # for layer in resnet.layers[0:-20]:
+    #     layer.trainable = False
 
     backbone.add(resnet)
 
@@ -27,3 +27,6 @@ def siamese_model(shape):
 
     siamese = tf.keras.Model([img_a, img_b], out)
     return siamese
+
+
+# .8864 droupout
