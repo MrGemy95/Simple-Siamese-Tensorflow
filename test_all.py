@@ -3,6 +3,7 @@ import tensorflow as tf
 import os
 from data_generator import DataLoader
 import argparse
+from time import sleep
 
 
 def test(args):
@@ -42,7 +43,7 @@ def test(args):
                              steps=loader.test_size // batch_size
                              )
     print(history)
-
+    sleep(5)
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", help="path to dataset",default="../")
