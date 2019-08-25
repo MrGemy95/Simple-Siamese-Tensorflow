@@ -10,14 +10,28 @@ import matplotlib.pyplot as plt
 import skimage
 import imageio
 import tensorflow as tf
+from numpy.random import uniform
 
 random.seed(0)
 
 
+def random_contrast_brightness(im):
+    """
+    """
+    if uniform(0, 1) > .5:
+
+        alpha = uniform(0.4, 1.5)
+        beta = uniform(-10, 10)
+        return np.clip(alpha * im + beta, 0, 255).astype('uint8')
+    else:
+        return im
+
+
 class DataLoader():
-    def __init__(self, path, samples, img_size, test=False):
+    def __init__(self, path, samples, img_size, test=False, augment=False):
         self.path = path
         self.img_size = img_size
+        self.augment = augment
         self.samples = samples
         if test:
             self.test_data = self.prepare_test_data(path)
@@ -147,7 +161,16 @@ class DataLoader():
             sample_files = random.choices(files, k=samples)
             for j, s in enumerate(sample_files):
                 img = imageio.imread(s)
+                plt.imshow(img)
+                plt.show()
 
+                if self.augment:
+                    img = random_contrast_brightness(img)
+
+                    if uniform(0, 1) > .5:
+                        img = np.fliplr(img)
+                plt.imshow(img)
+                plt.show()
                 img = skimage.transform.resize(img, size, preserve_range=True)
                 # plt.imshow(img)
                 # plt.show()
@@ -227,7 +250,7 @@ class DataLoader():
 # prepare_data(sys.argv[1])
 if __name__ == '__main__':
     loader = DataLoader("/home/gemy/work/freelancing/mars-motion-analysis-and-reidentification-set/", 10, (200, 100),
-                        test=True)
+                        test=False, augment=True)
     for i, j in enumerate(loader.generate_test(8)):
         print(i)
     for i, j in enumerate(loader.generate_epoch_val(8)):

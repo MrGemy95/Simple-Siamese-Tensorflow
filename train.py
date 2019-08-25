@@ -8,7 +8,7 @@ import argparse
 def train(args):
     batch_size = 16
     shape = (200, 100, 3)
-    loader = DataLoader(args.path, 150, shape[:2])
+    loader = DataLoader(args.path, 150, shape[:2], augment=args.aug)
     exp_path = "./"
 
     model = siamese_model(shape)
@@ -51,6 +51,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", help="path to dataset", default="../")
     parser.add_argument("--exp_name", help="experiment name", default="exp")
+    parser.add_argument("--aug", help="experiment name", action="store_true", default=False)
     args = parser.parse_args()
 
     train(args)

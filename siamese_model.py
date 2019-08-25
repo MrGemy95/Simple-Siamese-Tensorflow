@@ -7,7 +7,7 @@ def siamese_model(shape):
     img_a = tf.keras.layers.Input(shape=shape)
     img_b = tf.keras.layers.Input(shape=shape)
     backbone = tf.keras.Sequential()
-    resnet = tf.keras.applications.resnet50.ResNet50(weights='imagenet', input_shape=(221, 221, 3),
+    resnet = tf.keras.applications.resnet50.ResNet50(weights='imagenet', input_shape=shape,
                                                      include_top=False, pooling='avg')
 
     for layer in resnet.layers[0:-20]:
