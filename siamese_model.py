@@ -10,8 +10,8 @@ def siamese_model(shape):
     resnet = tf.keras.applications.resnet50.ResNet50(weights=None, input_shape=shape,
                                                      include_top=False, pooling='avg')
 
-    for layer in resnet.layers[0:-20]:
-        layer.trainable = False
+    # for layer in resnet.layers[0:-20]:
+    #     layer.trainable = False
 
     backbone.add(resnet)
 
