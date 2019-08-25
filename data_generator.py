@@ -161,16 +161,16 @@ class DataLoader():
             sample_files = random.choices(files, k=samples)
             for j, s in enumerate(sample_files):
                 img = imageio.imread(s)
-                plt.imshow(img)
-                plt.show()
+                # plt.imshow(img)
+                # plt.show()
 
                 if self.augment:
                     img = random_contrast_brightness(img)
 
                     if uniform(0, 1) > .5:
                         img = np.fliplr(img)
-                plt.imshow(img)
-                plt.show()
+                # plt.imshow(img)
+                # plt.show()
                 img = skimage.transform.resize(img, size, preserve_range=True)
                 # plt.imshow(img)
                 # plt.show()
