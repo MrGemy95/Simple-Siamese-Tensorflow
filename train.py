@@ -51,7 +51,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", help="path to dataset", default="../")
     parser.add_argument("--exp_name", help="experiment name", default="exp")
-    parser.add_argument("--samples", help="samples", default=100)
+    parser.add_argument("--samples", type=int, help="samples", default=100)
     parser.add_argument("--aug", help="data augmentataion", action="store_true", default=False)
     args = parser.parse_args()
 
